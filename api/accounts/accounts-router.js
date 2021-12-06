@@ -1,4 +1,10 @@
-const router = require('express').Router()
+const router = require('express').Router();
+const Accounts = require('./accounts-model');
+const {
+  checkAccountId,
+  checkAccountNameUnique,
+  checkAccountPayload
+} = require('./accounts-middleware');
 
 router.get('/', (req, res, next) => {
   // DO YOUR MAGIC
