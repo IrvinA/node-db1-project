@@ -3,20 +3,25 @@ const Accounts = require('./accounts-model');
 const {
   checkAccountId,
   checkAccountNameUnique,
-  checkAccountPayload
+  checkAccountPayload,
 } = require('./accounts-middleware');
 
-router.get('/', (req, res, next) => {
-  // DO YOUR MAGIC
-})
+router.get('/', async (req, res, next) => {
+  try {
+    const accounts = await Accounts.getAll();
+    res.json(accounts);
+  } catch (err) {
+    next(err);
+  }
+});
 
 router.get('/:id', (req, res, next) => {
   // DO YOUR MAGIC
-})
+});
 
 router.post('/', (req, res, next) => {
   // DO YOUR MAGIC
-})
+});
 
 router.put('/:id', (req, res, next) => {
   // DO YOUR MAGIC
@@ -24,6 +29,6 @@ router.put('/:id', (req, res, next) => {
 
 router.delete('/:id', (req, res, next) => {
   // DO YOUR MAGIC
-})
+});
 
 module.exports = router;
