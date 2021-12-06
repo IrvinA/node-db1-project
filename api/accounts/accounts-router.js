@@ -15,6 +15,7 @@ router.get('/', async (req, res, next) => {
   }
 });
 
+// eslint-disable-next-line no-unused-vars
 router.get('/:id', checkAccountId, async (req, res, next) => {
   res.json(req.account);
 });
@@ -50,8 +51,13 @@ router.put(
   }
 );
 
-router.delete('/:id', (req, res, next) => {
-  // DO YOUR MAGIC
+router.delete('/:id', checkAccountId, async (req, res, next) => {
+  try {
+    await Accounts.deleteById(req.params.id);
+    res.json(req.account);
+  } catch (err) {
+    next(err);
+  }
 });
 
 module.exports = router;
