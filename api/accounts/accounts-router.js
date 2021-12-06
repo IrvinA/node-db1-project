@@ -15,13 +15,26 @@ router.get('/', async (req, res, next) => {
   }
 });
 
-router.get('/:id', (req, res, next) => {
-  // DO YOUR MAGIC
+router.get('/:id', checkAccountId, async (req, res, next) => {
+  res.json(req.account);
 });
 
-router.post('/', (req, res, next) => {
-  // DO YOUR MAGIC
-});
+router.post(
+  '/',
+  checkAccountPayload,
+  checkAccountNameUnique,
+  async (req, res, next) => {
+    try {
+      const newAccount = await Accounts.create({
+        name: req.body.name.trim(),
+        budget: req.body.budget,
+      });
+      res.status(201).json(newAccount);
+    } catch (err) {
+      next(err);
+    }
+  }
+);
 
 router.put('/:id', (req, res, next) => {
   // DO YOUR MAGIC
